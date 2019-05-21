@@ -72,11 +72,12 @@ bool is_dag(const directed_graph<vertex> &graph, const vertex &start)
 			visitation_status[current] = visitation_colour::grey;
 
 		vertex min_vertex;
-
+		
 		if (has_min_adjacent(graph, current, &min_vertex, visitation_status))
 		{
 			if (visitation_status[min_vertex] == visitation_colour::grey)
 			{
+				//	Identified a cycle. End here.
 				return false;
 			}
 
@@ -92,6 +93,14 @@ bool is_dag(const directed_graph<vertex> &graph, const vertex &start)
 	return true;
 }
 
+/*
+	Determines if there is a connected edge that leads to an
+	unvisited vertex, or a vertex currently being visited.
+
+	Returns true/false if it contains this vertex. If true,
+	sets a vertex parameter to the vertex which can be used
+	in the calling function.
+*/
 template <typename vertex>
 bool has_min_adjacent(const directed_graph<vertex> &graph, const vertex &source, vertex *out_vertex, std::map<vertex, visitation_colour>& visitation_states)
 {
@@ -114,9 +123,11 @@ bool has_min_adjacent(const directed_graph<vertex> &graph, const vertex &source,
  * neighbours v, v appears later in the order than u.
  */
 template <typename vertex>
-std::list<vertex> topological_sort(const directed_graph<vertex> & d)
+std::list<vertex> topological_sort(const directed_graph<vertex> &graph)
 {
-	return std::list<vertex>();
+	std::list<vertex> sorted = std::list<vertex>{};
+
+	return sorted;
 }
 
 /*
@@ -163,9 +174,45 @@ std::vector<std::vector<vertex>> strongly_connected_components(const directed_gr
  * be the number of vertices in d plus 1.
  */
 template <typename vertex>
-std::unordered_map<vertex, std::size_t> shortest_distances(const directed_graph<vertex> & d, const vertex & u)
-{
-	return std::unordered_map<vertex, std::size_t>();
+std::unordered_map<vertex, std::size_t> shortest_distances(const directed_graph<vertex> &graph, const vertex &source)
+{	
+	std::unordered_map<vertex, std::size_t> shortest_distance_from_u = std::unordered_map<vertex, size_t>{};
+	std::queue<vertex> visitation_queue = std::queue<vertex>{};
+	std::map<vertex, visitation_colour> visitation_status = std::map<vertex, visitation_colour>{};
+
+	for (auto vertexIter = graph.begin(); vertexIter != graph.end(); ++vertexIter)
+	{
+		visitation_status.insert({ *vertexIter, visitation_colour::white });
+		shortest_distance_from_u.insert({ *vertexIter, 0 });
+	}
+
+	visitation_queue.push(source);
+	
+	while (!visitation_queue.empty())
+	{
+		auto current_vertex = visitation_queue.front();
+		visitation_queue.pop();
+		
+		if (visitation_status.at(current_vertex) == visitation_colour::white)
+			shortest_distance_from_u.at(current_vertex) = 0;
+
+		for (auto neighIter = graph.nbegin(current_vertex); neighIter != graph.nend(current_vertex); ++neighIter)
+		{
+			if (visitation_status.at(*neighIter) == visitation_colour::white)
+			{
+				visitation_status.at(*neighIter) = visitation_colour::grey;
+				shortest_distance_from_u.at(*neighIter) = shortest_distance_from_u.at(current_vertex) + 1;
+				visitation_queue.push(*neighIter);
+			}
+		}
+	}
+
+	return shortest_distance_from_u;
 }
 
 
+template <typename vertex>
+size_t distance_between(const directed_graph<vertex> &graph, const vertex &u, const vertex &v)
+{
+	return 0;
+}

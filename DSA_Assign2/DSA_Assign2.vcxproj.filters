@@ -21,24 +21,38 @@
     <ClInclude Include="dag_tests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="shortest_path_tests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="topological_sort_tests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="directed_graph_algorithms.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dag_tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="assignment_2_tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dag_tests.cpp">
+    <ClCompile Include="shortest_path_tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="topological_sort_tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\GraphProject\Structure\Structure\Tests\test_template.cpp">
-      <Filter>Source Files</Filter>
-    </None>
     <None Include="main.cpp">
       <Filter>Source Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\GraphProject\Structure\Structure\Tests\test_template.cpp">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

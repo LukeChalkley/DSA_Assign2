@@ -78,13 +78,28 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <PreBuildEvent>
-      <Command>C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o dag_tests.cpp dag_tests.h
-C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --root --error-printer --template test_template.cpp -o assignment_2_tests.cpp
-</Command>
+      <Command>C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o topological_sort_tests.cpp topological_sort_tests.h
+C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o shortest_path_tests.cpp shortest_path_tests.h
+C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o dag_tests.cpp dag_tests.h
+C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --root --template test_template.cpp --error-printer -o assignment_2_tests.cpp</Command>
     </PreBuildEvent>
     <PreBuildEvent>
-      <Message>Building assignment 2 tests.</Message>
+      <Message>Compiling test parts.</Message>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
+    </PostBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+    <PreLinkEvent>
+      <Message>
+      </Message>
+    </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -94,13 +109,28 @@ C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --root --error-printer --template test
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <PreBuildEvent>
-      <Command>C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o dag_tests.cpp dag_tests.h
-C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --root --error-printer --template test_template.cpp -o assignment_2_tests.cpp
-</Command>
+      <Command>C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o topological_sort_tests.cpp topological_sort_tests.h
+C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o shortest_path_tests.cpp shortest_path_tests.h
+C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o dag_tests.cpp dag_tests.h
+C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --root --template test_template.cpp --error-printer -o assignment_2_tests.cpp</Command>
     </PreBuildEvent>
     <PreBuildEvent>
-      <Message>Building assignment 2 tests.</Message>
+      <Message>Compiling test parts.</Message>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
+    </PostBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+    <PreLinkEvent>
+      <Message>
+      </Message>
+    </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -131,12 +161,54 @@ C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --root --error-printer --template test
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="dag_tests.h" />
+    <ClInclude Include="dag_tests.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="directed_graph.hpp" />
+    <ClInclude Include="shortest_path_tests.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="topological_sort_tests.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\GraphProject\Structure\Structure\Tests\test_template.cpp" />
-    <ClCompile Include="assignment_2_tests.cpp" />
+    <ClCompile Include="shortest_path_tests.cpp" />
+    <ClCompile Include="topological_sort_tests.cpp" />
+    <CustomBuild Include="..\..\GraphProject\Structure\Structure\Tests\test_template.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <ClCompile Include="assignment_2_tests.cpp">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Message>
+    </ClCompile>
     <ClCompile Include="dag_tests.cpp" />
     <ClCompile Include="directed_graph_algorithms.cpp" />
     <None Include="main.cpp" />

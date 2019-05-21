@@ -18,9 +18,9 @@
 #include <cxxtest/ParenPrinter.h>
 
 int main()
-{
+{	
 	int status = CxxTest::ParenPrinter().run();
-
+	
 	std::cin.get();
 
 	return status;

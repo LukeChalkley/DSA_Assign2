@@ -78,7 +78,10 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <PreBuildEvent>
-      <Command>C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o topological_sort_tests.cpp topological_sort_tests.h
+      <Command>C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o connected_components_test.cpp connected_components_test.h
+C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o hamiltonian_dag_tests.cpp hamiltonian_dag_tests.h
+C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o topological_sort_tests.cpp topological_sort_tests.h
+C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o scc_tests.cpp scc_tests.h
 C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o shortest_path_tests.cpp shortest_path_tests.h
 C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o dag_tests.cpp dag_tests.h
 C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --root --template test_template.cpp --error-printer -o assignment_2_tests.cpp</Command>
@@ -109,7 +112,10 @@ C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --root --template test_template.cpp --
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <PreBuildEvent>
-      <Command>C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o topological_sort_tests.cpp topological_sort_tests.h
+      <Command>C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o connected_components_test.cpp connected_components_test.h
+C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o hamiltonian_dag_tests.cpp hamiltonian_dag_tests.h
+C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o topological_sort_tests.cpp topological_sort_tests.h
+C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o scc_tests.cpp scc_tests.h
 C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o shortest_path_tests.cpp shortest_path_tests.h
 C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --part --error-printer -o dag_tests.cpp dag_tests.h
 C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --root --template test_template.cpp --error-printer -o assignment_2_tests.cpp</Command>
@@ -161,6 +167,7 @@ C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --root --template test_template.cpp --
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="connected_components_test.h" />
     <ClInclude Include="dag_tests.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </Command>
@@ -178,6 +185,12 @@ C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --root --template test_template.cpp --
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="directed_graph.hpp" />
+    <ClInclude Include="hamiltonian_dag_tests.h" />
+    <ClInclude Include="lukes_tests.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="scc_tests.h" />
     <ClInclude Include="shortest_path_tests.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </Command>
@@ -197,6 +210,9 @@ C:\cxxtest-4.4\cxxtest-4.4\bin\cxxtestgen --root --template test_template.cpp --
     <ClInclude Include="topological_sort_tests.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="connected_components_test.cpp" />
+    <ClCompile Include="hamiltonian_dag_tests.cpp" />
+    <ClCompile Include="scc_tests.cpp" />
     <ClCompile Include="shortest_path_tests.cpp" />
     <ClCompile Include="topological_sort_tests.cpp" />
     <CustomBuild Include="..\..\GraphProject\Structure\Structure\Tests\test_template.cpp">

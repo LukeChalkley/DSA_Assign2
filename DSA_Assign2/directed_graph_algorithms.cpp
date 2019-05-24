@@ -102,7 +102,10 @@ bool is_dag(const directed_graph<vertex> &graph, const vertex &start)
 	in the calling function.
 */
 template <typename vertex>
-bool has_min_adjacent(const directed_graph<vertex> &graph, const vertex &source, vertex *out_vertex, std::map<vertex, visitation_colour>& visitation_states)
+bool has_min_adjacent(const directed_graph<vertex> &graph, const vertex &source, 
+					  vertex *out_vertex, 
+					  std::map<vertex, 
+					  visitation_colour>& visitation_states)
 {
 	for (auto neighIter = graph.nbegin(source); neighIter != graph.nend(source); ++neighIter)
 	{
@@ -126,9 +129,54 @@ template <typename vertex>
 std::list<vertex> topological_sort(const directed_graph<vertex> &graph)
 {
 	std::list<vertex> sorted = std::list<vertex>{};
+	std::map<vertex, visitation_colour> visitation_status = std::map<vertex, visitation_colour>{};
+	std::stack<vertex> discovery_queue = std::stack<vertex>{};
+
+	for (auto vertexIter = graph.begin(); vertexIter != graph.end(); ++vertexIter)	
+		visitation_status.insert({ *vertexIter, visitation_colour::white });
+
+	for (auto vertexIter = graph.begin(); vertexIter != graph.end(); ++vertexIter)
+	{
+		if (visitation_status.at(*vertexIter) == visitation_colour::white)
+		{
+			visitation_status.at(*vertexIter) = visitation_colour::black;
+			discovery_queue.push(*vertexIter);
+			topological_sort(graph, sorted, visitation_status, discovery_queue);
+		}
+	}
 
 	return sorted;
 }
+
+
+template <typename vertex>
+void topological_sort(const directed_graph<vertex> &graph,
+					  std::list<vertex> &sorted, 
+					  std::map<vertex, visitation_colour> &visitation_status,
+					  std::stack<vertex> &discovery_queue)
+{
+	//	Base case for recursion.
+	if (discovery_queue.empty())
+		return;		//Should this just be an if statement where we execute if not empty?
+					//	Is return a bad thing for spaghetti code?
+
+	vertex current = discovery_queue.top();
+	discovery_queue.pop();
+
+	for (auto nIter = graph.nbegin(current); nIter != graph.nend(current); ++nIter)
+	{
+		if (visitation_status.at(*nIter) == visitation_colour::white)
+		{
+			visitation_status.at(*nIter) = visitation_colour::black;
+			discovery_queue.push(*nIter);
+			topological_sort(graph, sorted, visitation_status, discovery_queue);
+		}
+	}
+
+	sorted.push_front(current);
+}
+
+
 
 /*
  * Given a DAG, computes whether there is a Hamiltonian path.
@@ -136,9 +184,22 @@ std::list<vertex> topological_sort(const directed_graph<vertex> &graph)
  * exactly once.
  */
 template <typename vertex>
-bool is_hamiltonian_dag(const directed_graph<vertex> & d)
+bool is_hamiltonian_dag(const directed_graph<vertex> &graph)
 {
-	return false;
+	std::list<vertex> top_sort = topological_sort(graph);
+
+	typename std::list<vertex>::iterator top_iter = top_sort.begin();
+
+	while (top_iter != --top_sort.end())
+	{
+		vertex u = *top_iter;
+		vertex v = *(++top_iter);
+
+		if (!graph.adjacent(u, v))
+			return false;
+	}
+
+	return true;
 }
 
 /*
@@ -163,6 +224,14 @@ std::vector<std::vector<vertex>> components(const directed_graph<vertex> & d)
 template <typename vertex>
 std::vector<std::vector<vertex>> strongly_connected_components(const directed_graph<vertex> & d)
 {
+	std::vector<std::vector<vertex>> strong_connected_comp = std::vector<std::vector<vertex>>{};
+
+	return strong_connected_comp;
+}
+
+template <typename vertex>
+void strongly_connected_components(const directed_graph<vertex> &graph, vertex &source)
+{
 	return std::vector<std::vector<vertex>>();
 }
 
@@ -172,6 +241,8 @@ std::vector<std::vector<vertex>> strongly_connected_components(const directed_gr
  * of edges in any path from u to the other vertex.
  * If there is no path from u to a vertex, set the distance to
  * be the number of vertices in d plus 1.
+
+	Lets do this one iteratively.
  */
 template <typename vertex>
 std::unordered_map<vertex, std::size_t> shortest_distances(const directed_graph<vertex> &graph, const vertex &source)
@@ -180,10 +251,12 @@ std::unordered_map<vertex, std::size_t> shortest_distances(const directed_graph<
 	std::queue<vertex> visitation_queue = std::queue<vertex>{};
 	std::map<vertex, visitation_colour> visitation_status = std::map<vertex, visitation_colour>{};
 
-	for (auto vertexIter = graph.begin(); vertexIter != graph.end(); ++vertexIter)
+	for (typename directed_graph<vertex>::const_vertex_iterator vertexIter = graph.begin(); vertexIter != graph.end(); ++vertexIter)
 	{
-		visitation_status.insert({ *vertexIter, visitation_colour::white });
-		shortest_distance_from_u.insert({ *vertexIter, 0 });
+		visitation_status.insert({ *vertexIter, visitation_colour::white });	//	Set all vertices to unvisited.
+		
+		//	Set all distances to num_vertices + 1. Any unvisited vertices will keep this value.
+		shortest_distance_from_u.insert({ *vertexIter, graph.num_vertices() + 1 });
 	}
 
 	visitation_queue.push(source);
@@ -194,25 +267,19 @@ std::unordered_map<vertex, std::size_t> shortest_distances(const directed_graph<
 		visitation_queue.pop();
 		
 		if (visitation_status.at(current_vertex) == visitation_colour::white)
-			shortest_distance_from_u.at(current_vertex) = 0;
+			shortest_distance_from_u.at(current_vertex) = 0;	//	New vertex: reset distance to 0.
 
 		for (auto neighIter = graph.nbegin(current_vertex); neighIter != graph.nend(current_vertex); ++neighIter)
 		{
+			//	If there is a new vertex connected to our current
 			if (visitation_status.at(*neighIter) == visitation_colour::white)
 			{
-				visitation_status.at(*neighIter) = visitation_colour::grey;
-				shortest_distance_from_u.at(*neighIter) = shortest_distance_from_u.at(current_vertex) + 1;
+				visitation_status.at(*neighIter) = visitation_colour::grey;	//	Set to grey so we don't confuse it with a vertex being explored/already finished.
+				shortest_distance_from_u.at(*neighIter) = shortest_distance_from_u.at(current_vertex) + 1;	//	Add 1 to the distance of the neighbour vertex.
 				visitation_queue.push(*neighIter);
 			}
 		}
 	}
 
 	return shortest_distance_from_u;
-}
-
-
-template <typename vertex>
-size_t distance_between(const directed_graph<vertex> &graph, const vertex &u, const vertex &v)
-{
-	return 0;
 }

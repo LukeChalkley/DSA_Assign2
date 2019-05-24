@@ -111,6 +111,26 @@ public:
 		return count;
 	}
 
+	directed_graph<vertex> get_transpose() const
+	{
+		directed_graph<vertex> trans_graph;
+
+		for (auto vertIter = begin(); vertIter != end(); ++vertIter)
+		{
+			trans_graph.add_vertex(*vertIter);
+
+			for (auto nIter = nbegin(*vertIter); nIter != nend(*vertIter); ++nIter)
+			{
+				if (!trans_graph.contains(*nIter))		//	Just in case edge is not in graph.
+					trans_graph.add_vertex(*nIter);
+
+				trans_graph.add_edge(*nIter, *vertIter);
+			}
+		}
+
+		return trans_graph;
+	}
+
 	vertex_iterator begin() 
 	{
 		return vertices.begin();
@@ -149,6 +169,11 @@ public:
 	const_neighbour_iterator nend(const vertex& u) const
 	{
 		return edges.at(u).cend();
+	}
+
+	std::map<vertex, size_t> topological_ordering() const
+	{
+
 	}
 };
 

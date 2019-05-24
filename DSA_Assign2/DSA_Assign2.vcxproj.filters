@@ -27,6 +27,18 @@
     <ClInclude Include="topological_sort_tests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="hamiltonian_dag_tests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scc_tests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connected_components_test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lukes_tests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="directed_graph_algorithms.cpp">
@@ -42,6 +54,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="topological_sort_tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hamiltonian_dag_tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scc_tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connected_components_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

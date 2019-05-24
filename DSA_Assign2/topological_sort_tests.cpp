@@ -28,7 +28,7 @@ public:
 
 static class TestDescription_suite_topological_sort_tests_testCharTopologicalOrder : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_topological_sort_tests_testCharTopologicalOrder() : CxxTest::RealTestDescription( Tests_topological_sort_tests, suiteDescription_topological_sort_tests, 69, "testCharTopologicalOrder" ) {}
+ TestDescription_suite_topological_sort_tests_testCharTopologicalOrder() : CxxTest::RealTestDescription( Tests_topological_sort_tests, suiteDescription_topological_sort_tests, 73, "testCharTopologicalOrder" ) {}
  void runTest() { suite_topological_sort_tests.testCharTopologicalOrder(); }
 } testDescription_suite_topological_sort_tests_testCharTopologicalOrder;
 

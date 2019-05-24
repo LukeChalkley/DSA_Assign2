@@ -16,6 +16,9 @@ class shortest_path_tests : public CxxTest::TestSuite
 			_dg = directed_graph<int>{};
 		}
 
+		/*
+			DS Malik 20-6 pp. 1428
+		*/
 		void testShortestPathAllConnected()
 		{
 			for (auto vertex = 0; vertex <= 9; ++vertex)
@@ -42,5 +45,8 @@ class shortest_path_tests : public CxxTest::TestSuite
 			TS_ASSERT_EQUALS(distances[5], 3);
 			TS_ASSERT_EQUALS(distances[8], 4);
 			TS_ASSERT_EQUALS(distances[7], 4);
+
+			TS_ASSERT_EQUALS(distances[6], _dg.num_vertices() + 1);
+			TS_ASSERT_EQUALS(distances[4], _dg.num_vertices() + 1);
 		}
 };
